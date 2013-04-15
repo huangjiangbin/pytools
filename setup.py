@@ -14,5 +14,6 @@ setup(
     executables = [
             Executable("cat.py"),
             Executable("pwd.py"),
+            Executable("pwgen.py"),
         ]
 )
