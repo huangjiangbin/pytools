@@ -1,11 +1,12 @@
 # encoding: utf-8
 import os
 import argparse
+from inc import epilog
 
 def ArgParse():
     parser = argparse.ArgumentParser(
         description="Concatenate FILE(s), or standard input, to standard output.",
-        epilog="""Report %(prog)s bugs to http://www.truease.com"""
+        epilog=epilog
         )
     parser.add_argument(
         "-A", "--show-all",

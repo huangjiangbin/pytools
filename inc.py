@@ -1,0 +1,1 @@
+epilog = """Report %(prog)s bugs to http://www.truease.com"""
