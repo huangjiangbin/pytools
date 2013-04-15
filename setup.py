@@ -15,5 +15,6 @@ setup(
             Executable("cat.py"),
             Executable("pwd.py"),
             Executable("pwgen.py"),
+            Executable("urandom.py"),
         ]
 )
