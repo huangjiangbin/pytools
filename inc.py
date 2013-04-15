@@ -1,1 +1,1 @@
-epilog = """Report %(prog)s bugs to http://www.truease.com"""
+epilog = "Report %(prog)s bugs to http://www.truease.com/forum-66-1.html"
