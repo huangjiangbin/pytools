@@ -4,8 +4,8 @@ import argparse
 
 def ArgParse():
     parser = argparse.ArgumentParser(
-            description="Concatenate FILE(s), or standard input, to standard output.",
-            epilog="""Report %(prog)s bugs to http://www.truease.com"""
+        description="Concatenate FILE(s), or standard input, to standard output.",
+        epilog="""Report %(prog)s bugs to http://www.truease.com"""
         )
     parser.add_argument(
         "-A", "--show-all",
@@ -19,6 +19,12 @@ def ArgParse():
         action="store_true",
         help="number nonempty output lines",
         )
+    parser.add_argument(
+        "-B", "--number-lines",
+        dest="number_lines",
+        action="store_true",
+        help="number output lines",
+        )    
     parser.add_argument(
         "-e",
         dest="show_ends2",
@@ -42,7 +48,7 @@ def ArgParse():
         dest="show_tabs2",
         action="store_true",
         help="equivalent to -vT",
-        )      
+        )
     parser.add_argument(
         "-T", "--show-tabs",
         dest="show_tabs",
@@ -54,7 +60,7 @@ def ArgParse():
         dest="show_nonprinting",
         action="store_true",
         help="use ^ and M- notation, except for LFD and TAB",
-        )      
+        )
     parser.add_argument(
         "file",
         nargs="*",
