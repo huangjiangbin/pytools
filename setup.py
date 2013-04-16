@@ -17,5 +17,6 @@ setup(
             Executable("pwgen.py"),
             Executable("urandom.py"),
             Executable("ftpd.py"),
+            Executable("md5.py"),
         ]
 )
