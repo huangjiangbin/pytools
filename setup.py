@@ -18,5 +18,6 @@ setup(
             Executable("urandom.py"),
             Executable("ftpd.py"),
             Executable("md5.py"),
+            Executable("pytools-version.py"),
         ]
 )
