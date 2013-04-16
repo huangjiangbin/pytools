@@ -1,8 +1,18 @@
+import re
 import datetime
 import locale
 import argparse
 from inc import epilog
 
+def strftime(datetimeobject, formatstring):
+    formatstring = formatstring.replace("%%", "guest_u_never_use_20130416")
+    ps = set(re.findall("(%.)", formatstring))
+    ps = list(set(ps))
+    format2 = "|".join(ps)
+    vs = datetimeobject.strftime(format2).split("|")
+    for p, v in zip(ps, vs):
+        formatstring = formatstring.replace(p, v)
+    return formatstring.replace("guest_u_never_use_20130416", "%")
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
@@ -26,15 +36,14 @@ def ParseCommandLine():
 
 def Main():
     parse, opt = ParseCommandLine()
-    print( opt.format )
     
     if opt.utc:
         now = datetime.datetime.utcnow()
     else:
         now = datetime.datetime.now()
     
-    result = now.strftime(opt.format)
-    print(type(result))
+    result = strftime(now, opt.format)
+    print(result)
 
 if __name__ == '__main__':
     Main()

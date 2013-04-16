@@ -19,5 +19,6 @@ setup(
             Executable("ftpd.py"),
             Executable("md5.py"),
             Executable("pytools-version.py"),
+            Executable("nowtime.py"),
         ]
 )
