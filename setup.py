@@ -5,6 +5,7 @@ includes = [
     "re",
 ]
 include_files = [
+    "etc/whois-servers.txt"
 ]
 setup(
     name="pytools",
