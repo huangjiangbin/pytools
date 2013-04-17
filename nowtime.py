@@ -6,8 +6,7 @@ from inc import epilog
 
 def strftime(datetimeobject, formatstring):
     formatstring = formatstring.replace("%%", "guest_u_never_use_20130416")
-    ps = set(re.findall("(%.)", formatstring))
-    ps = list(set(ps))
+    ps = list(set(re.findall("(%.)", formatstring)))
     format2 = "|".join(ps)
     vs = datetimeobject.strftime(format2).split("|")
     for p, v in zip(ps, vs):
