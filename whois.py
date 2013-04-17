@@ -128,10 +128,9 @@ def Main():
     info = Query(server, domain)
     if "=xxx" in info:
         info = Query(server, "="+domain)
-        
     print(info)
-    if domain.startswith("="):
-        domain = domain[1:]
+    
+    bad_keywords = ["error:", "=xxx", "no data", "not found", "no match", "not match", "invalid domain", "no records"]
     real_whois_servers = set()
     rs = re.findall("Whois Server:(.*)\n", info)
     for r in rs:
@@ -141,7 +140,19 @@ def Main():
     if len(real_whois_servers) > 0:
         for real_whois_server in real_whois_servers:
             real_whois_server = real_whois_server.strip()
-            print(Query(real_whois_server, domain))
+            if server == real_whois_server:
+                continue
+            info = Query(real_whois_server, domain)
+            info2 = info.lower()
+            bad_flag = False
+            for keyword in bad_keywords:
+                if keyword in info2:
+                    bad_flag = True
+                    break
+            if not bad_flag:
+                print(info)
+            else:
+                pass
     
 if __name__ == '__main__':
     Main()
