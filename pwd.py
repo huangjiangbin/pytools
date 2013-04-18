@@ -1,3 +1,2 @@
-import hashlib
-import uuid
-print("No implemented yet...")
+import os
+print( os.getcwd() )
