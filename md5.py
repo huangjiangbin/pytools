@@ -20,26 +20,25 @@ def Main():
     parser, opt = ParseCommandLine()
     files = []
     for f in opt.file:
+        fromstdin = False
         if f == "-":
             fobj = os.sys.stdin.buffer
+            fromstdin = True
         else:
-            try:
-                fobj = open(f, "rb")
-            except Exception as e:
-                fobj = None
-                
-        if fobj:
-            m = hashlib.md5()
-            while 1:
-                t = fobj.read(524288)
-                if t:
-                    m.update(t)
-                else:
-                    break
-            a = m.hexdigest()
-        else:
-            a = "-"
-        print( "%s: %s"%(a, f) )
-
+            fobj = open(f, "rb")
+        
+        m = hashlib.md5()
+        while 1:
+            t = fobj.read(524288)
+            if t:
+                m.update(t)
+            else:
+                break
+        
+        if not fromstdin:
+            fobj.close()
+        
+        print( "%s: %s"%(m.hexdigest(), f) )
+        
 if __name__ == '__main__':
     Main()
