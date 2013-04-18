@@ -22,5 +22,6 @@ setup(
             Executable("pytools-version.py"),
             Executable("nowtime.py"),
             Executable("whois.py"),
+            Executable("b64.py", targetName="base64.exe"),
         ]
 )
