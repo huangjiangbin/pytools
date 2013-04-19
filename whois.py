@@ -4,6 +4,7 @@ import socket
 from urllib.request import urlopen
 import argparse
 from inc import EPILOG
+from func import GetProgramPath
 
 def force_unicode(bstr):
     try:
@@ -20,11 +21,11 @@ def force_unicode(bstr):
 def LoadWhoisServers(whois_server_list_file, whois_server_list_source_url, force_reload=False):
     servers = {}
     rows = []
-    try:
-        list_file = os.path.join( os.path.dirname(os.sys.executable), whois_server_list_file )
-    except:
-        list_file = os.path.realpath(os.path.join( os.path.realpath(os.path.dirname(os.sys.argv[0])), whois_server_list_file ))
-        
+    
+    progpath = GetProgramPath()
+    progdir = os.path.dirname(progpath)
+    list_file = os.path.realpath( os.path.join(progdir, whois_server_list_file) )
+    
     if list_file and (not force_reload):
         try:
             with open(list_file) as f:
