@@ -18,7 +18,7 @@ if progname in METHOD_CHOICES:
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
         description = "Print hash result. With no FILE or when FILE is -, read from standard input.",
-        epilog = epilog
+        epilog = EPILOG,
         )
     parser.add_argument(
         "file",
