@@ -1,7 +1,7 @@
 import os
 import hashlib
 import argparse
-from inc import epilog
+from inc import EPILOG
 from func import GetProgramPath
 
 METHOD_CHOICES = ["md5", "sha1", "sha224", "sha256", "sha384", "sha512"]

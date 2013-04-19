@@ -2,7 +2,7 @@ import re
 import datetime
 import locale
 import argparse
-from inc import epilog
+from inc import EPILOG
 
 def strftime(datetimeobject, formatstring):
     formatstring = formatstring.replace("%%", "guest_u_never_use_20130416")
@@ -16,7 +16,7 @@ def strftime(datetimeobject, formatstring):
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
         description = "Show current sytem time",
-        epilog = epilog,
+        epilog = EPILOG,
         )
     parser.add_argument(
         "-u", "--utc", "--universal",

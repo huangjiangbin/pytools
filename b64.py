@@ -1,7 +1,7 @@
 import os
 import base64
 import argparse
-from inc import epilog
+from inc import EPILOG
 
 def StringChunk(s, size):
     for i in range(0, len(s), size):
@@ -10,7 +10,7 @@ def StringChunk(s, size):
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
         description = "base64 encode/decode tools",
-        epilog = epilog,
+        epilog = EPILOG,
         )
     parser.add_argument(
         "-d", "--decode",

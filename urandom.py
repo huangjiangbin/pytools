@@ -1,11 +1,11 @@
 import os
 import argparse
-from inc import epilog
+from inc import EPILOG
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
         description="generate random bytes",
-        epilog=epilog,
+        epilog=EPILOG,
         )
     parser.add_argument(
         "-l", "--length",

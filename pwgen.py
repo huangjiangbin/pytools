@@ -3,7 +3,7 @@ import time
 import random
 import string
 import argparse
-from inc import epilog
+from inc import EPILOG
 
 random.seed(time.time())
 
@@ -27,7 +27,7 @@ def PWGen(opt):
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
         description="random password generator",
-        epilog=epilog,
+        epilog=EPILOG,
         )
     parser.add_argument(
         "-l", "--length",

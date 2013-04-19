@@ -1,5 +1,6 @@
 import sys
 from cx_Freeze import setup, Executable
+from inc import *
 
 includes = [
     "re",
@@ -8,8 +9,9 @@ include_files = [
     "etc/whois-servers.txt"
 ]
 setup(
-    name="pytools",
-    version = "0.1",
+    name=PROGRAM_TITLE,
+    version = VERSION,
+    license = COPYRIGHT,
     description = "pytools",
     options = {"build_exe": {"includes": includes, "include_files": include_files}},
     executables = [

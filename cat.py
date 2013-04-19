@@ -1,7 +1,7 @@
 # encoding: utf-8
 import os
 import argparse
-from inc import epilog
+from inc import EPILOG
 
 def ArgParse():
     parser = argparse.ArgumentParser(

@@ -3,7 +3,7 @@ import re
 import socket
 from urllib.request import urlopen
 import argparse
-from inc import epilog
+from inc import EPILOG
 
 def force_unicode(bstr):
     try:
@@ -68,7 +68,7 @@ def LoadWhoisServers(whois_server_list_file, whois_server_list_source_url, force
 def ParserCommandLine():
     parser = argparse.ArgumentParser(
         description = "get domain register infos",
-        epilog = epilog,
+        epilog = EPILOG,
         )
     parser.add_argument(
         "-c", "--cache-file",
