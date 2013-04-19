@@ -13,15 +13,25 @@ setup(
     description = "pytools",
     options = {"build_exe": {"includes": includes, "include_files": include_files}},
     executables = [
+            Executable("pytools-version.py"),
+            
             Executable("cat.py"),
-            Executable("pwd.py"),
             Executable("pwgen.py"),
             Executable("urandom.py"),
-            Executable("ftpd.py"),
-            Executable("md5.py"),
-            Executable("pytools-version.py"),
-            Executable("nowtime.py"),
-            Executable("whois.py"),
             Executable("b64.py", targetName="base64.exe"),
+            
+            Executable("hash.py"),
+            Executable("hash.py", targetName="md5.exe"),
+            Executable("hash.py", targetName="sha1.exe"),
+            Executable("hash.py", targetName="sha224.exe"),
+            Executable("hash.py", targetName="sha256.exe"),
+            Executable("hash.py", targetName="sha384.exe"),
+            Executable("hash.py", targetName="sha512.exe"),
+            
+            Executable("pwd.py"),
+            Executable("nowtime.py"),
+            
+            Executable("ftpd.py"),
+            Executable("whois.py"),
         ]
 )
