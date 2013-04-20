@@ -10,9 +10,9 @@ just for example:
     #
     # find all function definition lines
     #
-    D:\Projects\pytools>type lf.py | lf -n -c "def\W*(.*)\W*\("  -c "^\W*def\W+.*\W*\(.*\)\W*:"
-       11 def ParseCommandLine():
-       56 def Main():
+    D:\Projects\pytools>type lf.py | lf -n -c "^\W*def\W+.*\W*\(.*\)\W*:"
+       51 def ParseCommandLine():
+      103 def Main():
     
     #
     # find all function names
