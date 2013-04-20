@@ -140,7 +140,6 @@ def Main():
     real_whois_servers = list(real_whois_servers)
     if len(real_whois_servers) > 0:
         for real_whois_server in real_whois_servers:
-            real_whois_server = real_whois_server.strip()
             if server == real_whois_server:
                 continue
             info = Query(real_whois_server, domain)
