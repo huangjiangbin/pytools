@@ -35,6 +35,8 @@ setup(
             Executable("nowtime.py"),
             Executable("sleep.py"),
             
+            Executable("getchar.py"),
+            
             Executable("ftpd.py"),
             Executable("whois.py"),
         ]
