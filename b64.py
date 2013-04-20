@@ -50,19 +50,21 @@ def Main():
     
     if opt.url_safe:
         if opt.decode:
-            content2 = base64.decodestring(content)
-        else:
-            content2 = base64.encodestring(content)
-    else:
-        if opt.decode:
             content2 = base64.urlsafe_b64decode(content)
         else:
             content2 = base64.urlsafe_b64encode(content)
+    else:
+        if opt.decode:
+            content2 = base64.decodestring(content)
+        else:
+            content2 = base64.encodestring(content)
     
-    if opt.linebreak:
-        cs = list(StringChunk(content2, 76))
-        content2 = b"\n".join(cs)
-        
+    if not opt.decode:
+        content2 = content2.replace(b"\r", b"").replace(b"\n", b"")
+        if opt.linebreak and not opt.url_safe:
+            cs = list(StringChunk(content2, 76))
+            content2 = b"\n".join(cs)
+    
     os.sys.stdout.buffer.write(content2)
     os.sys.stdout.flush()
     
