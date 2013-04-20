@@ -33,6 +33,7 @@ setup(
             
             Executable("pwd.py"),
             Executable("nowtime.py"),
+            Executable("sleep.py"),
             
             Executable("ftpd.py"),
             Executable("whois.py"),
