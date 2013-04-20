@@ -110,7 +110,7 @@ def Main():
         fileobj = open(filepath, "rb")
     
     lineno = 0
-    conds = [c.encode("utf-8") for c in opt.cond]
+    conds = [c.encode(opt.encoding) for c in opt.cond]
     while 1:
         lineno += 1
         
