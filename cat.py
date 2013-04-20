@@ -6,7 +6,7 @@ from inc import EPILOG
 def ArgParse():
     parser = argparse.ArgumentParser(
         description="Concatenate FILE(s), or standard input, to standard output.",
-        epilog=epilog
+        epilog=EPILOG
         )
     parser.add_argument(
         "-A", "--show-all",
