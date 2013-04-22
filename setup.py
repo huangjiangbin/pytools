@@ -18,8 +18,9 @@ setup(
             Executable("pytools-version.py"),
             
             Executable("cat.py"),
+            Executable("crlf.py"),
+            Executable("strip.py"),            
             Executable("lf.py"),
-            Executable("strip.py"),
             Executable("pwgen.py"),
             Executable("urandom.py"),
             Executable("b64.py", targetName="base64.exe"),
