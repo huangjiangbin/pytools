@@ -13,7 +13,15 @@ setup(
     version = VERSION,
     license = COPYRIGHT,
     description = "pytools",
-    options = {"build_exe": {"includes": includes, "include_files": include_files}},
+    options = {
+            "build_exe": {
+                    "create_shared_zip": False,
+                    "append_script_to_exe": True,
+                    "include_in_shared_zip": False,
+                    "includes": includes,
+                    "include_files": include_files,
+                },
+        },
     executables = [
             Executable("pytools-version.py"),
             
