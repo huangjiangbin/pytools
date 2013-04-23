@@ -93,17 +93,19 @@ def ParseCommandLine():
         help="show line numbers",
         )
     parser.add_argument(
-        "file",
-        nargs="?",
-        default=["-"],
-        help="target file. use - for stdin"
-    )
+        "-f", "--file",
+        dest="file",
+        action="store",
+        required=True,
+        default="-",
+        help="target file. use - for stdin",
+        )
     return parser, parser.parse_args()
 
 def Main():
     parse, opt = ParseCommandLine()
-    
-    filepath= opt.file[0]
+
+    filepath= opt.file
     if filepath == "-":
         fileobj = os.sys.stdin.buffer
     else:
