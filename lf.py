@@ -54,6 +54,12 @@ def ParseCommandLine():
         epilog=EPILOG,
         )
     parser.add_argument(
+        "-i", "--ignore-case",
+        dest="ignorecase",
+        action="store_true",
+        help="ignore case",
+        )
+    parser.add_argument(
         "-e", "--encoding",
         dest="encoding",
         action="store",
@@ -104,7 +110,11 @@ def ParseCommandLine():
 
 def Main():
     parse, opt = ParseCommandLine()
-
+    
+    reflag = 0
+    if opt.ignorecase:
+        reflag = reflag | re.IGNORECASE
+        
     filepath= opt.file
     if filepath == "-":
         fileobj = os.sys.stdin.buffer
@@ -127,7 +137,7 @@ def Main():
         
         for cond in conds:
             flag = False
-            if re.findall(cond, line):
+            if re.findall(cond, line, reflag):
                 flag = True
                 
             if flag and opt.cor:
