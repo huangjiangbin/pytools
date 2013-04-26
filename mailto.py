@@ -80,7 +80,7 @@ def ParseCommandLine():
         "-e", "--encoding",
         dest="encoding",
         action="store",
-        default="utf-8",
+        default="gb18030",
         help="content encoding",
         )
     parser.add_argument(
