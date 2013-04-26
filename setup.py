@@ -49,5 +49,6 @@ setup(
             
             Executable("ftpd.py"),
             Executable("whois.py"),
+            Executable("mailto.py"),
         ]
 )
