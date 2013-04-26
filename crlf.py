@@ -2,6 +2,7 @@ import os
 import argparse
 from inc import EPILOG
 
+BUFFER_SIZE = 1024*32-1
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
@@ -31,7 +32,7 @@ def ParseCommandLine():
 
 def Main():
     parser, opt = ParseCommandLine()
-    print(opt)
+    
     if (not opt.r and not opt.n) or (opt.r and opt.n):
         opt.r = True
         opt.n = True
@@ -44,7 +45,7 @@ def Main():
         end = b""
         
     if opt.f == "-":
-        cin = os.sys.stdin.buffer.raw
+        cin = os.sys.stdin.buffer
         cout = os.sys.stdout.buffer
     else:
         fname = os.path.split(opt.f)[1]
@@ -56,7 +57,7 @@ def Main():
         cout = open(fout, "wb")
     
     while 1:
-        line = cin.read1(524288)
+        line = cin.read(BUFFER_SIZE)
         if not line:
             break
         

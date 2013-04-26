@@ -3,7 +3,7 @@ import os
 import argparse
 from inc import EPILOG
 
-BUFFER_SIZE = 1024*512
+BUFFER_SIZE = 1024*32-1
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
