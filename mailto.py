@@ -58,6 +58,7 @@ def ParseCommandLine():
         )
     parser.add_argument(
         "-r", "--receivers",
+        metavar="RECEIVER",
         dest="receivers",
         nargs="+",
         required=True,
@@ -71,6 +72,7 @@ def ParseCommandLine():
         )
     parser.add_argument(
         "-a", "--attachments",
+        metavar="ATTACHMENT",
         dest="attachments",
         action="store",
         nargs="*",
