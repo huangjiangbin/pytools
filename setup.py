@@ -42,6 +42,8 @@ setup(
             Executable("hash.py", targetName="sha384.exe"),
             Executable("hash.py", targetName="sha512.exe"),
             
+            Executable("ssh-keygen.py"),
+            
             Executable("pwd.py"),
             Executable("nowtime.py"),
             Executable("sleep.py"),
