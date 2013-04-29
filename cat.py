@@ -9,35 +9,11 @@ def ArgParse():
         epilog=EPILOG
         )
     parser.add_argument(
-        "-A", "--show-all",
-        dest="show_all",
-        action="store_true",
-        help="equivalent to -vET",
-        )
-    parser.add_argument(
-        "-b", "--number-nonblank",
-        dest="number_nonblank",
-        action="store_true",
-        help="number nonempty output lines",
-        )
-    parser.add_argument(
-        "-B", "--number-lines",
+        "-n", "--number-lines",
         dest="number_lines",
         action="store_true",
         help="number output lines",
         )    
-    parser.add_argument(
-        "-e",
-        dest="show_ends2",
-        action="store_true",
-        help="equivalent to -vE",
-        )
-    parser.add_argument(
-        "-E", "--show-ends",
-        dest="show_ends",
-        action="store_true",
-        help="display $ at end of each line",
-        )
     parser.add_argument(
         "-s", "--squeeze-blank",
         dest="squeeze_blank",
@@ -45,36 +21,53 @@ def ArgParse():
         help="suppress repeated empty output lines",
         )
     parser.add_argument(
-        "-t",
-        dest="show_tabs2",
-        action="store_true",
-        help="equivalent to -vT",
-        )
-    parser.add_argument(
-        "-T", "--show-tabs",
-        dest="show_tabs",
-        action="store_true",
-        help="display TAB characters as ^I",
-        )
-    parser.add_argument(
-        "-v", "--show-nonprinting",
-        dest="show_nonprinting",
-        action="store_true",
-        help="use ^ and M- notation, except for LFD and TAB",
-        )
-    parser.add_argument(
-        "file",
+        "files",
+        metavar="FILE",
         nargs="*",
         default=["-"],
         )
-    args = parser.parse_args()
-    return parser, args
+    return parser, parser.parse_args()
 
 def Main():
-    parser, args = ArgParse()
+    parser, opt = ArgParse()
+    
+    for f in opt.files:
+        if f == "-":
+            fileobj = os.sys.stdin.buffer
+        else:
+            fileobj = open(f, "rb")
         
-    print(parser)
-    print(args)
+        n = 0
+        lastlinebreak = False
+        while 1:
+            n += 1
+            
+            line = fileobj.readline()
+            if not line:
+                break
+            
+            if opt.squeeze_blank and ( not line.strip() ):
+                if line.endswith(b"\r\n"):
+                    line = b"\r\n"
+                elif line.endswith(b"\r"):
+                    line = b"\r"
+                else:
+                    line = b"\n"
+            
+            if opt.number_lines:
+                line = ("%5d "%(n)).encode("ascii") + line
+            os.sys.stdout.buffer.write(line)
+            
+            if line.endswith(b"\n") or line.endswith(b"\r"):
+                lastlinebreak = True
+            else:
+                lastlinebreak = False
+                
+        if f != "-":
+            fileobj.close()
+        
+        if not lastlinebreak:
+            print()
 
 if __name__ == '__main__':
     Main()
