@@ -48,6 +48,7 @@ setup(
             Executable("which.py"),
             Executable("nowtime.py"),
             Executable("sleep.py"),
+            Executable("ppid.py"),
             
             Executable("getchar.py"),
             
