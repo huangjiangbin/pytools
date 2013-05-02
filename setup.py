@@ -15,9 +15,9 @@ setup(
     description = "pytools",
     options = {
             "build_exe": {
-                    "create_shared_zip": False,
-                    "append_script_to_exe": True,
-                    "include_in_shared_zip": False,
+                    #"create_shared_zip": False,
+                    #"append_script_to_exe": True,
+                    #"include_in_shared_zip": False,
                     "includes": includes,
                     "include_files": include_files,
                 },
@@ -46,10 +46,12 @@ setup(
             
             Executable("ssh-keygen.py"),
             
+            Executable("nowtime.py"),
+            Executable("isoweek.py"),
+            
             Executable("pwd.py"),
             Executable("fs.py"),
             Executable("which.py"),
-            Executable("nowtime.py"),
             Executable("sleep.py"),
             Executable("ppid.py"),
             
