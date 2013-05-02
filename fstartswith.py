@@ -46,8 +46,8 @@ def ParseCommandLine():
         help="file encoding.",
         )
     parser.add_argument(
-        "-s", "--startswith",
-        dest="startswith",
+        "-s", "--search",
+        dest="search",
         action="store",
         required=True,
         help="the given string.",
@@ -67,14 +67,14 @@ def ParseCommandLine():
         )
     return parser, parser.parse_args()
 
-def FStartswith(fpath, startswith, strip):
+def FStartswith(fpath, search, strip):
     try:
         with open(fpath, "rb") as fobj:
             buf = fobj.read(1024)
             if strip:
                 buf = buf.lstrip()
             
-            if buf.startswith(startswith):
+            if buf.startswith(search):
                 print(fpath)
     except:
         pass
@@ -82,16 +82,16 @@ def FStartswith(fpath, startswith, strip):
 def Main():
     parser, opt = ParseCommandLine()
     
-    startswith = unescape(opt.startswith.encode(opt.encoding))
+    search = unescape(opt.search.encode(opt.encoding))
     folder = os.path.realpath( opt.folder )
     
     if os.path.isdir(folder):
         for root, dirs, files in os.walk(folder):
             for f in files:
                 ff = os.path.join(root, f)
-                FStartswith(ff, startswith, opt.strip)
+                FStartswith(ff, search, opt.strip)
     elif os.path.isfile(folder):
-        FStartswith(folder, startswith, opt.strip)
+        FStartswith(folder, search, opt.strip)
     else:
         os.sys.exit(1)
         
