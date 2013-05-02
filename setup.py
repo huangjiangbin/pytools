@@ -33,6 +33,7 @@ setup(
             Executable("pwgen.py"),
             Executable("urandom.py"),
             Executable("b64.py", targetName="base64.exe"),
+            Executable("fstartswith.py"),
             
             Executable("hash.py"),
             Executable("hash.py", targetName="md5.exe"),
