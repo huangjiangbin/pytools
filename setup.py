@@ -45,6 +45,7 @@ setup(
             Executable("ssh-keygen.py"),
             
             Executable("pwd.py"),
+            Executable("fs.py"),
             Executable("which.py"),
             Executable("nowtime.py"),
             Executable("sleep.py"),
