@@ -53,6 +53,12 @@ def ParseCommandLine():
         help="the given string.",
         )
     parser.add_argument(
+        "-p", "--strip",
+        dest="strip",
+        action="store_true",
+        help="ignore the white spaces",
+        )
+    parser.add_argument(
         "folder",
         metavar="FOLDER",
         nargs="?",
@@ -61,6 +67,18 @@ def ParseCommandLine():
         )
     return parser, parser.parse_args()
 
+def FStartswith(fpath, startswith, strip):
+    try:
+        with open(fpath, "rb") as fobj:
+            buf = fobj.read(1024)
+            if strip:
+                buf = buf.lstrip()
+            
+            if buf.startswith(startswith):
+                print(fpath)
+    except:
+        pass
+    
 def Main():
     parser, opt = ParseCommandLine()
     
@@ -71,18 +89,9 @@ def Main():
         for root, dirs, files in os.walk(folder):
             for f in files:
                 ff = os.path.join(root, f)
-                try:
-                    with open(ff, "rb") as fobj:
-                        buf = fobj.read(1024)
-                        if buf.startswith(startswith):
-                            print(ff)
-                except:
-                    pass
+                FStartswith(ff, startswith, opt.strip)
     elif os.path.isfile(folder):
-        with open(folder, "rb") as fobj:
-            buf = fobj.read(1024)
-            if buf.startswith(startswith):
-                print(folder)
+        FStartswith(folder, startswith, opt.strip)
     else:
         os.sys.exit(1)
         
