@@ -26,6 +26,8 @@ setup(
             Executable("pytools-version.py"),
             
             Executable("cat.py"),
+            Executable("tail.py"),
+            
             Executable("crlf.py"),
             Executable("strip.py"),            
             Executable("lf.py"),
