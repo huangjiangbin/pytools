@@ -32,9 +32,12 @@ setup(
             Executable("strip.py"),            
             Executable("lf.py"),
             Executable("lreplace.py"),
+            
             Executable("pwgen.py"),
+            Executable("uuid4.py", targetName="uuid.exe"),
             Executable("urandom.py"),
             Executable("b64.py", targetName="base64.exe"),
+            
             Executable("fstartswith.py"),
             Executable("fendswith.py"),
             
