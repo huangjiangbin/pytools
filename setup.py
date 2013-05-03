@@ -37,10 +37,12 @@ setup(
             Executable("uuid4.py", targetName="uuid.exe"),
             Executable("urandom.py"),
             Executable("rand.py"),
-            Executable("b64.py", targetName="base64.exe"),
+            Executable("switch01.py"),
             
             Executable("fstartswith.py"),
             Executable("fendswith.py"),
+            
+            Executable("b64.py", targetName="base64.exe"),
             
             Executable("hash.py"),
             Executable("hash.py", targetName="md5.exe"),
