@@ -56,11 +56,13 @@ setup(
             
             Executable("nowtime.py"),
             Executable("isoweek.py"),
+            Executable("uptime.py"),
+            Executable("sleep.py"),
             
             Executable("pwd.py"),
             Executable("fs.py"),
             Executable("which.py"),
-            Executable("sleep.py"),
+            
             Executable("ppid.py"),
             
             Executable("getchar.py"),
