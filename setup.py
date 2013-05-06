@@ -64,6 +64,7 @@ setup(
             Executable("which.py"),
             
             Executable("ppid.py"),
+            Executable("memfree.py"),
             
             Executable("getchar.py"),
             
