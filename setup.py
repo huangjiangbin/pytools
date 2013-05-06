@@ -70,6 +70,7 @@ setup(
             Executable("getchar.py"),
             
             Executable("ping.py", targetName="yping.exe"),
+            Executable("httpd.py"),
             Executable("ftpd.py"),
             Executable("whois.py"),
             Executable("mailto.py"),
