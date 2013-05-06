@@ -65,6 +65,7 @@ setup(
             
             Executable("ppid.py"),
             Executable("memfree.py"),
+            Executable("diskfree.py"),
             
             Executable("getchar.py"),
             
