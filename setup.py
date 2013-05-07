@@ -77,5 +77,7 @@ setup(
             Executable("mailto.py"),
             
             Executable("iresize.py"),
+            
+            Executable("mysql-dbrename.py"),
         ]
 )
