@@ -57,6 +57,7 @@ setup(
             Executable("nowtime.py"),
             Executable("isoweek.py"),
             Executable("uptime.py"),
+            Executable("idletime.py"),
             Executable("sleep.py"),
             
             Executable("pwd.py"),
