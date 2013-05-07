@@ -7,7 +7,7 @@ def ParseCommandLine():
     parser = argparse.ArgumentParser(
         description = "Network client",
         epilog = EPILOG,
-        conflict_handler='resolve'
+        conflict_handler="resolve"
         )
     parser.add_argument(
         "-r", "--crlf",
