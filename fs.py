@@ -9,6 +9,12 @@ def ParseCommandLine():
         epilog=EPILOG,
         )
     parser.add_argument(
+        "-n", "--only-filename",
+        dest="onlyfilename",
+        action="store_true",
+        help="only show the file name",
+        )
+    parser.add_argument(
         "-r", "--recursive",
         dest="recursive",
         action="store_true",
@@ -39,14 +45,21 @@ def Main():
             ff = os.path.realpath( os.path.join(folder, f) )
             if (not opt.showdirectories) and os.path.isdir(ff):
                 continue
-            print(ff)
+            if opt.onlyfilename:
+                print(os.path.split(ff)[1])
+            else:
+                print(ff)
     else:
         for root, dirs, files in os.walk(folder):
             if opt.showdirectories:
-                print(root)
+                if not opt.onlyfilename:
+                    print(root)
             for f in files:
                 ff = os.path.join(root, f)
-                print(ff)
+                if opt.onlyfilename:
+                    print(os.path.split(ff)[1])
+                else:
+                    print(ff)
     
 
 if __name__ == '__main__':
