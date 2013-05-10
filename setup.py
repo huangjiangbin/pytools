@@ -79,5 +79,7 @@ setup(
             Executable("iresize.py"),
             
             Executable("mysql-dbrename.py"),
+            
+            Executable("css-grid-system.py"),
         ]
 )
