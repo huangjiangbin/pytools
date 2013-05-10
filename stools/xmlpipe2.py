@@ -82,7 +82,7 @@ def XmlPip2Begin(global_config, opt):
     for field in fields:
         field = field.strip()
         if field:
-            str_fields += """<sphinx:field name="%s" />\n"""%(field)
+            str_fields += """\t\t<sphinx:field name="%s" />\n"""%(field)
     
     types = ["uint", "bigint", "float", "timestamp", "string", "multi"]
     for ctype in types:
@@ -92,12 +92,9 @@ def XmlPip2Begin(global_config, opt):
             if attr:
                 str_attrs += """\t\t<sphinx:attr type="%s" name="%s" />\n"""%(ctype, attr)
 
-    print("""\
-<?xml version="1.0" encoding="utf-8"?>
-<sphinx:docset>
-\t<sphinx:schema>
-\t\t%s%s\t</sphinx:schema>
-"""%(str_fields, str_attrs))
+    print("""<?xml version="1.0" encoding="utf-8"?>""")
+    print("""<sphinx:docset>""")
+    print("""\t<sphinx:schema>\n%s%s\t</sphinx:schema>"""%(str_fields, str_attrs))
 
 def XmlPip2End():
     print("""</sphinx:docset>""")
@@ -109,15 +106,15 @@ def RowsHandler(rs, config, opt):
     
     for row in rows:
         id = row[0]
-        print("""\t\t\t<sphinx:document id="%d">"""%(id))
+        print("""\t<sphinx:document id="%d">"""%(id))
         for col in range(1, fcount):
             k = fieldnames[col]
             v = str(row[col])
-            if ("<" in v) or (">" in v) or ("&" in v):
+            if ("<" in v) or (">" in v):
                 v = "<![CDATA[[" + v + "]]>"
-            print("""\t\t\t\t<%s>%s</%s>"""%(k, v, k))
+            print("""\t\t<%s>%s</%s>"""%(k, v, k))
         # todo: print multi field values
-        print("""\t\t\t</sphinx:document>""")
+        print("""\t</sphinx:document>""")
 
 def Main():
     parser, opt = ParseCommandLine()
