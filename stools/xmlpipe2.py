@@ -73,7 +73,7 @@ def GetRows(config, opt, sql):
         fieldnames.append( f[0] )
     return rows, fieldnames
 
-def XmlPip2Begin(global_config, opt):
+def XmlPipe2Begin(global_config, opt):
     section_config = global_config[opt.section]
     str_fields = ""
     str_attrs = ""
@@ -91,12 +91,12 @@ def XmlPip2Begin(global_config, opt):
             attr = attr.strip()
             if attr:
                 str_attrs += """\t\t<sphinx:attr type="%s" name="%s" />\n"""%(ctype, attr)
-
+    
     print("""<?xml version="1.0" encoding="utf-8"?>""")
     print("""<sphinx:docset>""")
     print("""\t<sphinx:schema>\n%s%s\t</sphinx:schema>"""%(str_fields, str_attrs))
-
-def XmlPip2End():
+    
+def XmlPipe2End():
     print("""</sphinx:docset>""")
 
 def RowsHandler(rs, config, opt):
@@ -116,12 +116,18 @@ def RowsHandler(rs, config, opt):
         # todo: print multi field values
         print("""\t</sphinx:document>""")
 
+def LoadMVAs(global_config, opt):
+    global_config = LoadConfig(opt.config)
+    section_config = global_config[opt.section]
+    
 def Main():
     parser, opt = ParseCommandLine()
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
     
-    XmlPip2Begin(global_config, opt)
+    MVAs = LoadMVAs()
+    
+    XmlPipe2Begin(global_config, opt)
     
     sql_query = section_config["sql_query"]
     if ("$start" in sql_query) or ("$end" in sql_query):
@@ -144,7 +150,7 @@ def Main():
         rs = GetRows(global_config, opt, sql)
         RowsHandler(rs, global_config, opt)
     
-    XmlPip2End()
+    XmlPipe2End()
     
 if __name__ == '__main__':
     Main()
