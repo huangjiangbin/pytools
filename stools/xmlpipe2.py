@@ -53,18 +53,23 @@ def GetConn(config, opt):
         )
 
 def GetMinMaxID(config, opt):
-    cfg = config[opt.section]
-    sql = "select min(%s) as min_id, max(%s) as max_id from %s;"%(
-            cfg.get("id_field", "id"),
-            cfg.get("id_field", "id"),
-            cfg["table"],
-        )
+    for c in range(1,5):
+        try:
+            cfg = config[opt.section]
+            sql = "select min(%s) as min_id, max(%s) as max_id from %s;"%(
+                    cfg.get("id_field", "id"),
+                    cfg.get("id_field", "id"),
+                    cfg["table"],
+                )
+            conn = GetConn(config, opt)
+            cursor = conn.cursor()
+            cursor.execute(sql)
+            return cursor.fetchall()[0]
+        except:
+            pass
+        time.sleep(c)
+    os.sys.exit(1)
     
-    conn = GetConn(config, opt)
-    cursor = conn.cursor()
-    cursor.execute(sql)
-    return cursor.fetchall()[0]
-
 def GetRows(config, opt, sql):
     for c in range(1,5):
         try:
@@ -72,12 +77,12 @@ def GetRows(config, opt, sql):
             cursor = conn.cursor()
             cursor.execute(sql)
             rows = cursor.fetchall()
-            break
+            return rows, cursor.column_names
         except:
             pass
         time.sleep(c)
-        
-    return rows, cursor.column_names
+    os.sys.exit(1)
+    
 
 def XmlPipe2Begin(global_config, opt):
     section_config = global_config[opt.section]
@@ -138,29 +143,34 @@ def LoadMVAs(global_config, opt):
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
 
-
 global_log_file = ""
+global_log_file_object = None
+
+def Log(line):
+    global global_log_file_object
+    
+    if not global_log_file:
+        return
+    
+    if not global_log_file_object:
+        global_log_file_object = open(global_log_file, "wb")
+    
+    global_log_file_object.write(line)
+    
 def MyPrint(line):
     line += "\n"
     line = line.encode("utf-8")
     
-    if global_log_file:
-        with open(global_log_file, "ab") as f:
-            f.write(line)
-            
+    Log(line)
     os.sys.stdout.buffer.write(line)
-    os.sys.stdout.buffer.flush()
 
 def Main():
-    global global_log_file
     
     parser, opt = ParseCommandLine()
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
     
     if opt.log:
-        with open(opt.log, "wb") as f:
-            pass
         global_log_file = opt.log
     
     MVAs = LoadMVAs(global_config, opt)
@@ -190,5 +200,12 @@ def Main():
     
     XmlPipe2End()
     
+    if global_log_file_object:
+        global_log_file_object.close()
+
 if __name__ == '__main__':
-    Main()
+    try:
+        Main()
+    finally:
+        if global_log_file_object:
+            global_log_file_object.close()
