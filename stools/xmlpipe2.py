@@ -1,4 +1,6 @@
 import os
+import time
+import datetime
 import configparser
 import argparse
 
@@ -64,10 +66,17 @@ def GetMinMaxID(config, opt):
     return cursor.fetchall()[0]
 
 def GetRows(config, opt, sql):
-    conn = GetConn(config, opt)
-    cursor = conn.cursor()
-    cursor.execute(sql)
-    rows = cursor.fetchall()
+    for c in range(1,5):
+        try:
+            conn = GetConn(config, opt)
+            cursor = conn.cursor()
+            cursor.execute(sql)
+            rows = cursor.fetchall()
+            break
+        except:
+            pass
+        time.sleep(c)
+        
     return rows, cursor.column_names
 
 def XmlPipe2Begin(global_config, opt):
@@ -81,20 +90,24 @@ def XmlPipe2Begin(global_config, opt):
         if field:
             str_fields += """\t\t<sphinx:field name="%s" />\n"""%(field)
     
-    types = ["uint", "bigint", "float", "timestamp", "string", "multi"]
+    types = ["int", "timestamp", "bool", "float", "string", "multi"]
     for ctype in types:
+        if ctype == "int":
+            ext = 'bits="32"'
+        else:
+            ext = ''
         attrs = section_config.get(ctype+"_attrs", "").splitlines()
         for attr in attrs:
             attr = attr.strip()
             if attr:
-                str_attrs += """\t\t<sphinx:attr type="%s" name="%s" />\n"""%(ctype, attr)
+                str_attrs += """\t\t<sphinx:attr name="%s" type="%s" %s/>\n"""%(attr, ctype, ext)
     
-    print("""<?xml version="1.0" encoding="utf-8"?>""")
-    print("""<sphinx:docset>""")
-    print("""\t<sphinx:schema>\n%s%s\t</sphinx:schema>"""%(str_fields, str_attrs))
+    MyPrint("""<?xml version="1.0" encoding="utf-8"?>""")
+    MyPrint("""<sphinx:docset>""")
+    MyPrint("""\t<sphinx:schema>\n%s%s\t</sphinx:schema>"""%(str_fields, str_attrs))
     
 def XmlPipe2End():
-    print("""</sphinx:docset>""")
+    MyPrint("""</sphinx:docset>""")
 
 def RowsHandler(rs, config, opt):
     rows = rs[0]
@@ -103,23 +116,39 @@ def RowsHandler(rs, config, opt):
     
     for row in rows:
         id = row[0]
-        print("""\t<sphinx:document id="%d">"""%(id))
+        MyPrint("""\t<sphinx:document id="%d">"""%(id))
         for col in range(1, fcount):
             k = fieldnames[col]
             v = row[col]
             if v is None:
                 v = ""
-            v = str(row[col])
-            if ("<" in v) or (">" in v):
+            if isinstance(v, datetime.datetime):
+                v = int(time.mktime( v.timetuple() ))
+            v = str(v)
+            if ("<" in v) or (">" in v) or ("&" in v):
                 v = "<![CDATA[[" + v + "]]>"
-            print("""\t\t<%s>%s</%s>"""%(k, v, k))
-        # todo: print multi field values
-        print("""\t</sphinx:document>""")
+            if v:
+                MyPrint("""\t\t<%s>%s</%s>"""%(k, v, k))
+            else:
+                MyPrint("""\t\t<%s />"""%(k))
+        # todo: MyPrint multi field values
+        MyPrint("""\t</sphinx:document>""")
 
 def LoadMVAs(global_config, opt):
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
-    
+
+def Log(line):
+    with open("d:/a.log", "ab") as f:
+        f.write(str(type(line)).encode("utf8")+line)
+
+def MyPrint(line):
+    line += "\n"
+    line = line.encode("utf-8")
+    Log(line)
+    os.sys.stdout.buffer.write(line)
+    os.sys.stdout.buffer.flush()
+
 def Main():
     parser, opt = ParseCommandLine()
     global_config = LoadConfig(opt.config)
