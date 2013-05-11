@@ -16,21 +16,21 @@ def ParseCommandLine():
         dest="config",
         action="store",
         required=True,
-        help="config file.",
+        help="Config file.",
         )
     parser.add_argument(
         "-s", "--section",
         dest="section",
         action="store",
         required=True,
-        help="second name in config file.",
+        help="The main section name in the config file.",
         )
     parser.add_argument(
-        "-a", "--action",
-        choices=["all", "delta"],
-        dest="action",
+        "-l", "--log",
+        metavar="FILE",
+        dest="log",
         action="store",
-        help="generator action.",
+        help="Log the xml content to the FILE.",
         )
     return parser, parser.parse_args()
 
@@ -93,9 +93,9 @@ def XmlPipe2Begin(global_config, opt):
     types = ["int", "timestamp", "bool", "float", "string", "multi"]
     for ctype in types:
         if ctype == "int":
-            ext = 'bits="32"'
+            ext = """bits="32" """
         else:
-            ext = ''
+            ext = ""
         attrs = section_config.get(ctype+"_attrs", "").splitlines()
         for attr in attrs:
             attr = attr.strip()
@@ -138,21 +138,30 @@ def LoadMVAs(global_config, opt):
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
 
-def Log(line):
-    with open("d:/a.log", "ab") as f:
-        f.write(str(type(line)).encode("utf8")+line)
 
+global_log_file = ""
 def MyPrint(line):
     line += "\n"
     line = line.encode("utf-8")
-    Log(line)
+    
+    if global_log_file:
+        with open(global_log_file, "ab") as f:
+            f.write(line)
+            
     os.sys.stdout.buffer.write(line)
     os.sys.stdout.buffer.flush()
 
 def Main():
+    global global_log_file
+    
     parser, opt = ParseCommandLine()
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
+    
+    if opt.log:
+        with open(opt.log, "wb") as f:
+            pass
+        global_log_file = opt.log
     
     MVAs = LoadMVAs(global_config, opt)
     
@@ -171,7 +180,7 @@ def Main():
             rs = GetRows(global_config, opt, sql)
             RowsHandler(rs, global_config, opt)
             
-            start_id += step
+            start_id += step + 1
             if start_id > max_id:
                 break
     else:
