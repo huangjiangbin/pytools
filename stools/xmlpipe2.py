@@ -68,10 +68,7 @@ def GetRows(config, opt, sql):
     cursor = conn.cursor()
     cursor.execute(sql)
     rows = cursor.fetchall()
-    fieldnames = []
-    for f in cursor.description:
-        fieldnames.append( f[0] )
-    return rows, fieldnames
+    return rows, cursor.column_names
 
 def XmlPipe2Begin(global_config, opt):
     section_config = global_config[opt.section]
@@ -109,6 +106,9 @@ def RowsHandler(rs, config, opt):
         print("""\t<sphinx:document id="%d">"""%(id))
         for col in range(1, fcount):
             k = fieldnames[col]
+            v = row[col]
+            if v is None:
+                v = ""
             v = str(row[col])
             if ("<" in v) or (">" in v):
                 v = "<![CDATA[[" + v + "]]>"
@@ -125,7 +125,7 @@ def Main():
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
     
-    MVAs = LoadMVAs()
+    MVAs = LoadMVAs(global_config, opt)
     
     XmlPipe2Begin(global_config, opt)
     
