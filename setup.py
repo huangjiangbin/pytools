@@ -74,6 +74,7 @@ setup(
             Executable("httpd.py"),
             Executable("ftpd.py"),
             Executable("whois.py"),
+            Executable("wget.py"),
             Executable("mailto.py"),
             
             Executable("iresize.py"),
