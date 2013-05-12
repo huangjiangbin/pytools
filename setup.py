@@ -43,7 +43,6 @@ setup(
             Executable("fendswith.py"),
             
             Executable("b64.py", targetName="base64.exe"),
-            
             Executable("hash.py"),
             Executable("hash.py", targetName="md5.exe"),
             Executable("hash.py", targetName="sha1.exe"),
@@ -63,6 +62,8 @@ setup(
             Executable("pwd.py"),
             Executable("fs.py"),
             Executable("which.py"),
+            
+            Executable("dsnumber.py"),
             
             Executable("ppid.py"),
             Executable("memfree.py"),
