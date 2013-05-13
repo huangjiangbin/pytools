@@ -63,6 +63,7 @@ setup(
             Executable("pwd.py"),
             Executable("fs.py"),
             Executable("which.py"),
+            Executable("du.py"),
             
             Executable("ppid.py"),
             Executable("memfree.py"),
