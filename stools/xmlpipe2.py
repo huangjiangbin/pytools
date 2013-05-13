@@ -83,6 +83,10 @@ def GetRows(config, opt, sql):
         time.sleep(c)
     os.sys.exit(1)
     
+def XmlPipe2KillList(global_config, opt):
+    section_config = global_config[opt.section]
+    klist_sql = section_config.get("klist_query", "") or section_config.get("killlist_query", "")
+    
 
 def XmlPipe2Begin(global_config, opt):
     section_config = global_config[opt.section]
@@ -175,7 +179,6 @@ def LoadMVAs(global_config, opt):
     
 global_log_file = ""
 global_log_file_object = None
-
 def Log(line):
     global global_log_file_object
     
@@ -205,7 +208,7 @@ def Main():
     if opt.log:
         global_log_file = opt.log
     
-    MVAs = LoadMVAs(global_config, opt)
+    LoadMVAs(global_config, opt)
 
     XmlPipe2Begin(global_config, opt)
     
@@ -230,6 +233,7 @@ def Main():
         rs = GetRows(global_config, opt, sql)
         RowsHandler(rs, global_config, opt)
     
+    XmlPipe2KillList(global_config, opt)
     XmlPipe2End()
     
     if global_log_file_object:
