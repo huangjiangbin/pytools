@@ -32,6 +32,7 @@ setup(
             Executable("strip.py"),            
             Executable("lf.py"),
             Executable("lreplace.py"),
+            Executable("lcount.py"),
             
             Executable("pwgen.py"),
             Executable("uuid4.py", targetName="uuid.exe"),
