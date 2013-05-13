@@ -120,6 +120,7 @@ def RowsHandler(rs, config, opt):
     rows = rs[0]
     fieldnames = rs[1]
     fcount = len(fieldnames)
+    mvas = LoadMVAs(config, opt)
     
     for row in rows:
         id = row[0]
@@ -138,12 +139,39 @@ def RowsHandler(rs, config, opt):
                 MyPrint("""\t\t<%s>%s</%s>"""%(k, v, k))
             else:
                 MyPrint("""\t\t<%s />"""%(k))
-        # todo: MyPrint multi field values
+        for field_name in mvas:
+            if id in mvas[field_name]:
+                MyPrint("""\t\t<%s>%s</%s>"""%(field_name, mvas[field_name][id], field_name))
         MyPrint("""\t</sphinx:document>""")
 
+global_mvas = None
 def LoadMVAs(global_config, opt):
+    global global_mvas
+    
+    if not global_mvas is None:
+        return global_mvas
+    
+    global_mvas = {}
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
+    fields = section_config.get("multi_attrs", "").splitlines()
+    for field in fields:
+        field = field.strip()
+        if field:
+            if not field in global_mvas:
+                global_mvas[field] = {}
+            field_mvas = global_mvas[field]
+            sql = section_config.get(field+"_query", "").strip()
+            if sql:
+                rows, _ = GetRows(global_config, opt, sql)
+                aids = list(set([row[0] for row in rows]))
+                for aid in aids:
+                    field_mvas[aid] = []
+                for row in rows:
+                    field_mvas[row[0]].append(str(row[1]))
+            for k in field_mvas:
+                field_mvas[k] = ",".join(list(set(field_mvas[k])))
+    return global_mvas
     
 global_log_file = ""
 global_log_file_object = None
@@ -154,7 +182,7 @@ def Log(line):
     if not global_log_file:
         return
     
-    if not global_log_file_object:
+    if global_log_file_object is None:
         global_log_file_object = open(global_log_file, "wb")
     
     global_log_file_object.write(line)
@@ -167,6 +195,8 @@ def MyPrint(line):
     os.sys.stdout.buffer.write(line)
 
 def Main():
+    global global_log_file_object
+    global global_log_file
     
     parser, opt = ParseCommandLine()
     global_config = LoadConfig(opt.config)
@@ -176,7 +206,7 @@ def Main():
         global_log_file = opt.log
     
     MVAs = LoadMVAs(global_config, opt)
-    
+
     XmlPipe2Begin(global_config, opt)
     
     sql_query = section_config["sql_query"]
@@ -203,6 +233,7 @@ def Main():
     XmlPipe2End()
     
     if global_log_file_object:
+        global_log_file_object.flush()
         global_log_file_object.close()
 
 if __name__ == '__main__':
