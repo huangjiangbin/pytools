@@ -95,17 +95,19 @@ def XmlPipe2Begin(global_config, opt):
         if field:
             str_fields += """\t\t<sphinx:field name="%s" />\n"""%(field)
     
-    types = ["int", "timestamp", "bool", "float", "string", "multi"]
+    types = ["int", "uint", "timestamp", "bool", "float", "string", "multi"]
     for ctype in types:
-        if ctype == "int":
+        if ctype == "uint" or ctype == "int":
+            ctype_name = "int"
             ext = """bits="32" """
         else:
+            ctype_name = ctype
             ext = ""
         attrs = section_config.get(ctype+"_attrs", "").splitlines()
         for attr in attrs:
             attr = attr.strip()
             if attr:
-                str_attrs += """\t\t<sphinx:attr name="%s" type="%s" %s/>\n"""%(attr, ctype, ext)
+                str_attrs += """\t\t<sphinx:attr name="%s" type="%s" %s/>\n"""%(attr, ctype_name, ext)
     
     MyPrint("""<?xml version="1.0" encoding="utf-8"?>""")
     MyPrint("""<sphinx:docset>""")
@@ -142,7 +144,7 @@ def RowsHandler(rs, config, opt):
 def LoadMVAs(global_config, opt):
     global_config = LoadConfig(opt.config)
     section_config = global_config[opt.section]
-
+    
 global_log_file = ""
 global_log_file_object = None
 
