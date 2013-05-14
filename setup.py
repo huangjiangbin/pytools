@@ -64,6 +64,7 @@ setup(
             Executable("fs.py"),
             Executable("which.py"),
             Executable("du.py"),
+            Executable("touch.py"),
             
             Executable("dsnumber.py"),
             
