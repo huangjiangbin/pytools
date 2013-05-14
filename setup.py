@@ -64,6 +64,7 @@ setup(
             Executable("fs.py"),
             Executable("which.py"),
             Executable("du.py"),
+            Executable("fstat.py"),
             Executable("touch.py"),
             Executable("cd.py", targetName="goto.exe"),
             
