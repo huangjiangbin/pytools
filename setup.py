@@ -65,6 +65,7 @@ setup(
             Executable("which.py"),
             Executable("du.py"),
             Executable("touch.py"),
+            Executable("cd.py", targetName="goto.exe"),
             
             Executable("dsnumber.py"),
             
