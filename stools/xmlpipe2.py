@@ -86,8 +86,14 @@ def GetRows(config, opt, sql):
 def XmlPipe2KillList(global_config, opt):
     section_config = global_config[opt.section]
     klist_sql = section_config.get("klist_query", "") or section_config.get("killlist_query", "")
+    if klist_sql:
+        rows, fnames = GetRows(global_config, opt, klist_sql)
+        if rows:
+            MyPrint("""\t<sphinx:killlist>""")
+            for row in rows:
+                MyPrint("""\t\t<id>%d</id>"""%(row[0]))
+            MyPrint("""\t</sphinx:killlist>""")
     
-
 def XmlPipe2Begin(global_config, opt):
     section_config = global_config[opt.section]
     str_fields = ""
