@@ -82,6 +82,36 @@ def GetRows(config, opt, sql):
             pass
         time.sleep(c)
     os.sys.exit(1)
+
+global_xflag_ids = []
+def XFlagUpdate(id, global_config, opt):
+    global global_xflag_ids
+    global_xflag_ids.append(id)
+
+def XFlagDone(global_config, opt):
+    global global_xflag_ids
+    
+    section_config = global_config[opt.section]
+    value = section_config.get("xflag_field_value", None)
+    if value is None:
+        return
+    
+    table = section_config["table"]
+    xflag_field = section_config["xflag_field"]
+    id_field = section_config["id_field"]
+    str_ids = ",".join([str(x) for x in global_xflag_ids])
+    
+    ids = list(set(global_xflag_ids))
+    sql = "update `%s` set `%s` = %d where `%d` in (%s)"%(
+            table,
+            xflag_field,
+            value,
+            id_field,
+            str_ids,
+        )
+    conn = GetConn(global_config, opt)
+    cursor = conn.cursor()
+    cursor.execute(sql)
     
 def XmlPipe2KillList(global_config, opt):
     section_config = global_config[opt.section]
@@ -153,7 +183,9 @@ def RowsHandler(rs, config, opt):
             if id in mvas[field_name]:
                 MyPrint("""\t\t<%s>%s</%s>"""%(field_name, mvas[field_name][id], field_name))
         MyPrint("""\t</sphinx:document>""")
-
+        
+        XFlagUpdate(id, config, opt)
+        
 global_mvas = None
 def LoadMVAs(global_config, opt):
     global global_mvas
