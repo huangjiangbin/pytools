@@ -34,6 +34,7 @@ setup(
             Executable("lreplace.py"),
             Executable("lcount.py"),
             Executable("col.py"),
+            Executable("uniq.py"),
             
             Executable("pwgen.py"),
             Executable("uuid4.py", targetName="uuid.exe"),
