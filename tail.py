@@ -6,7 +6,7 @@ BUFSIZE = 1024*1024*16
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="show the end lines of a file",
+        description="Show the tail lines of a file.",
         epilog=EPILOG,
         )
     parser.add_argument(
@@ -14,7 +14,7 @@ def ParseCommandLine():
         dest="file",
         action="store",
         default="-",
-        help="target file",
+        help="Target file.",
         )
     parser.add_argument(
         "-n", "--number",
@@ -22,7 +22,7 @@ def ParseCommandLine():
         action="store",
         type=int,
         default=0,
-        help="show last N lines",
+        help="Show last N lines.",
         )
     return parser, parser.parse_args()
 
