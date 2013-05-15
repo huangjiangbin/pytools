@@ -35,7 +35,7 @@ setup(
             Executable("lcount.py"),
             Executable("col.py"),
             Executable("uniq.py"),
-            Executable("sort.py", targetName="lsort.exe"),
+            Executable("lsort.py"),
             
             Executable("pwgen.py"),
             Executable("uuid4.py", targetName="uuid.exe"),
