@@ -63,6 +63,7 @@ setup(
             Executable("idletime.py"),
             Executable("sleep.py"),
             
+            Executable("cmdsize.py"),
             Executable("pwd.py"),
             Executable("fs.py"),
             Executable("which.py"),
