@@ -6,7 +6,11 @@ includes = [
     "re",
 ]
 include_files = [
-    "etc/whois-servers.txt"
+    "etc/whois-servers.txt",
+    "magic1.dll",
+    "regex2.dll",
+    "zlib1.dll",
+    "magic.mgc",
 ]
 setup(
     name=PROGRAM_TITLE,
@@ -28,6 +32,7 @@ setup(
             Executable("cat.py"),
             Executable("tail.py"),
             Executable("head.py"),
+            Executable("file.py"),
             
             Executable("crlf.py"),
             Executable("strip.py"),            

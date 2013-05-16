@@ -25,3 +25,21 @@ def StripCRLF(s):
     if s[-1:] == lf or s[-1:] == cr:
         return s[:-1]
     return s
+
+def SmartUnicode(s):
+    if isinstance(s, str):
+        return s
+    if isinstance(s, (bytes, bytearray)):
+        encodings = ["utf-8", "gb18030", "iso-8859-1", "windows-1252", "windows-1253"]
+        for encoding in encodings:
+            try:
+                return s.decode(encoding)
+            except UnicodeDecodeError:
+                pass
+        return ""
+    return str(s)
+
+
+
+
+
