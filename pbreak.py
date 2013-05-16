@@ -4,6 +4,7 @@ import argparse
 from inc import EPILOG
 from cmdsize import GetConsoleScreenSize
 from getchar import GetChar
+from func import StdoutWrite
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
@@ -36,7 +37,7 @@ def Main():
         if not line:
             break
         
-        os.sys.stdout.buffer.write(line)
+        StdoutWrite(line)
         
         n += 1
         if n%(height-1) == 0:

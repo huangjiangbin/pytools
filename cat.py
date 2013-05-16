@@ -2,6 +2,7 @@
 import os
 import argparse
 from inc import EPILOG
+from func import StdoutWrite
 
 def ArgParse():
     parser = argparse.ArgumentParser(
@@ -56,7 +57,7 @@ def Main():
             
             if opt.number_lines:
                 line = ("%5d "%(n)).encode("ascii") + line
-            os.sys.stdout.buffer.write(line)
+            StdoutWrite(line)
             
             if line.endswith(b"\n") or line.endswith(b"\r"):
                 lastlinebreak = True
@@ -67,7 +68,9 @@ def Main():
             fileobj.close()
         
         if not lastlinebreak:
-            print()
+            print("")
 
 if __name__ == '__main__':
     Main()
+    
+    
