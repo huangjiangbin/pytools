@@ -33,6 +33,7 @@ setup(
             Executable("tail.py"),
             Executable("head.py"),
             Executable("file.py"),
+            Executable("eval.py"),
             
             Executable("crlf.py"),
             Executable("strip.py"),            
