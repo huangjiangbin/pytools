@@ -23,15 +23,20 @@ def ParseCommandLine():
         )
     return parser, parser.parse_args()
 
-def Main():
-    parser, opt = ParseCommandLine()
-    
-    if opt.information:
-        print(opt.information)
-    
+def GetChar(prompt):
+    if prompt:
+        print(prompt, end="", flush=True)
+        
     msg = msvcrt.getch()
     while msvcrt.kbhit():
         msg += msvcrt.getch()
+    
+    return msg
+
+def Main():
+    parser, opt = ParseCommandLine()
+    
+    msg = GetChar(opt.information)
     
     if opt.echo:
         os.sys.stdout.buffer.write(msg)
