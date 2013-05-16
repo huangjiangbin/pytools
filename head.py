@@ -9,13 +9,6 @@ def ParseCommandLine():
         epilog=EPILOG,
         )
     parser.add_argument(
-        "-e", "--encoding",
-        dest="encoding",
-        action="store",
-        default="utf-8",
-        help="File encoding. Default to UTF-8."
-        )
-    parser.add_argument(
         "-l", "--line-number",
         dest="number",
         action="store_true",
@@ -42,9 +35,9 @@ def Main():
     parser, opt = ParseCommandLine()
     
     if opt.file == "-":
-        fileobj = os.sys.stdin
+        fileobj = os.sys.stdin.buffer
     else:
-        fileobj = open(opt.file, "r", encoding=opt.encoding)
+        fileobj = open(opt.file, "rb")
     
     num = 0
     for x in range(0, opt.number):
@@ -57,9 +50,9 @@ def Main():
         line = StripCRLF(line)
         
         if opt.number:
-            print("%5d %s"%(num, line))
+            os.sys.stdout.buffer.write(("%5d "%(num)).encode("ascii") + line + os.linesep.encode("ascii"))
         else:
-            print(line)
+            os.sys.stdout.buffer.write(line + os.linesep.encode("ascii"))
     
     if opt.file != "-":
         fileobj.close()
