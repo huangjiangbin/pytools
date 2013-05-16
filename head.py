@@ -10,7 +10,7 @@ def ParseCommandLine():
         )
     parser.add_argument(
         "-l", "--line-number",
-        dest="number",
+        dest="show_line_number",
         action="store_true",
         help="Show line number.",
         )
@@ -49,7 +49,7 @@ def Main():
         
         line = StripCRLF(line)
         
-        if opt.number:
+        if opt.show_line_number:
             os.sys.stdout.buffer.write(("%5d "%(num)).encode("ascii") + line + os.linesep.encode("ascii"))
         else:
             os.sys.stdout.buffer.write(line + os.linesep.encode("ascii"))
