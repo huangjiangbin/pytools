@@ -1,6 +1,7 @@
 import os
 import argparse
 from inc import EPILOG
+from func import StripCRLF
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
@@ -43,13 +44,6 @@ def ParseCommandLine():
         help="Target file. Default to - means read from stdin.",
     )
     return parser, parser.parse_args()
-
-def StripCRLF(s):
-    if s[-2:] == b"\r\n":
-        return s[:-2]
-    if s[-1] == ord(b"\n") or s[-1] == ord(b"\r"):
-        return s[:-1]
-    return s
 
 def Main():
     paser, opt = ParseCommandLine()
