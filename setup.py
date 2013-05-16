@@ -27,6 +27,7 @@ setup(
             
             Executable("cat.py"),
             Executable("tail.py"),
+            Executable("head.py"),
             
             Executable("crlf.py"),
             Executable("strip.py"),            

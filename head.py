@@ -1,6 +1,7 @@
 import os
 import argparse
 from inc import EPILOG
+from func import StripCRLF
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
@@ -8,9 +9,22 @@ def ParseCommandLine():
         epilog=EPILOG,
         )
     parser.add_argument(
-        "-f", "--file",
-        dest="file",
+        "-e", "--encoding",
+        dest="encoding",
         action="store",
+        default="utf-8",
+        help="File encoding. Default to UTF-8."
+        )
+    parser.add_argument(
+        "-l", "--line-number",
+        dest="number",
+        action="store_true",
+        help="Show line number.",
+        )
+    parser.add_argument(
+        "file",
+        metavar="FILE",
+        nargs="?",
         default="-",
         help="Target file.",
         )
@@ -26,7 +40,29 @@ def ParseCommandLine():
 
 def Main():
     parser, opt = ParseCommandLine()
-    print(opt)
+    
+    if opt.file == "-":
+        fileobj = os.sys.stdin
+    else:
+        fileobj = open(opt.file, "r", encoding=opt.encoding)
+    
+    num = 0
+    for x in range(0, opt.number):
+        num += 1
+        
+        line = fileobj.readline()
+        if not line:
+            break
+        
+        line = StripCRLF(line)
+        
+        if opt.number:
+            print("%5d %s"%(num, line))
+        else:
+            print(line)
+    
+    if opt.file != "-":
+        fileobj.close()
     
 if __name__ == '__main__':
     Main()
