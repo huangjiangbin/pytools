@@ -42,6 +42,7 @@ setup(
             Executable("col.py"),
             Executable("uniq.py"),
             Executable("lsort.py"),
+            Executable("sum.py"),
             
             Executable("pwgen.py"),
             Executable("uuid4.py", targetName="uuid.exe"),
