@@ -70,6 +70,7 @@ setup(
             Executable("uptime.py"),
             Executable("idletime.py"),
             Executable("sleep.py"),
+            Executable("pbreak.py"),
             
             Executable("cmdsize.py"),
             Executable("pwd.py"),
