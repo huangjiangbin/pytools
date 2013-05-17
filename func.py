@@ -39,7 +39,16 @@ def SmartUnicode(s):
         return ""
     return str(s)
 
-
+def StdoutWrite(line):
+    try:
+        os.sys.stdout.buffer.raw.write(line)
+        os.sys.stdout.buffer.raw.flush()
+        flag = True
+    except:
+        flag = False
+    
+    if not flag:
+        os.sys.exit(1)
 
 
 
