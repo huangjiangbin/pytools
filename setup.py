@@ -80,7 +80,6 @@ setup(
             Executable("du.py"),
             Executable("fstat.py"),
             Executable("touch.py"),
-            Executable("cd.py", targetName="goto.exe"),
             
             Executable("dsnumber.py"),
             
