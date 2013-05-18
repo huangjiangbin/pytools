@@ -16,15 +16,14 @@ PYTHON工具集（使用python3.3，面向windows开发）
     1. 用于发布Windows二进制包
     1. 下载对应的cx_Freeze安装包安装
 1. libmagic
-    1. magic.py是由python-magic-0.4.3修改而来的，需要独立安装扩展
-        1. python-magic (https://github.com/ahupp/python-magic)
+    1. 下载源代码(https://github.com/ahupp/python-magic)
+        1. 执行 python setup.py install
     1. 需要将将libmagic相关的3个dll复制到pytools根目录下
         1. magic1.dll
         1. zlib1.dll
         1. regex2.dll
     1. 需要将相应的magic元数据库复制到pytools根目录下
         1. magic.mgc
-    1. 安装单独下载后再执行 python setup.py install
 1. PIL(pillow)
     1. 图片处理程序依赖于PIL模块
     1. 安装 pip install pillow
