@@ -1,6 +1,7 @@
 # encoding: utf-8
 #
-# doesn't work
+# 这里的cd命令无法影响console窗口的当前目录
+# 理论上console窗口的当前目录只能由shell内核改变
 #
 import os
 import argparse
