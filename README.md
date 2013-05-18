@@ -8,7 +8,14 @@ PYTHON工具集（使用python3.3，面向windows开发）
 
 特殊依赖
 ========
-1. file工具
+1. pywin32
+    1. 打包程序需要pywin32的支持
+    1. 利用ctypes直接调用DLL接口的程序需要pywin32
+    1. 下载对应的pywin32安装包安装
+1. cx_Freeze
+    1. 用于发布Windows二进制包
+    1. 下载对应的cx_Freeze安装包安装
+1. libmagic
     1. magic.py是由python-magic-0.4.3修改而来的，需要独立安装扩展
         1. python-magic (https://github.com/ahupp/python-magic)
     1. 需要将将libmagic相关的3个dll复制到pytools根目录下
@@ -17,8 +24,15 @@ PYTHON工具集（使用python3.3，面向windows开发）
         1. regex2.dll
     1. 需要将相应的magic元数据库复制到pytools根目录下
         1. magic.mgc
-
-
+    1. 安装单独下载后再执行 python setup.py install
+1. PIL(pillow)
+    1. 图片处理程序依赖于PIL模块
+    1. 安装 pip install pillow
+1. mysql-connector-python
+    1. MYSQL相关工具依赖于mysql-connector-python模块
+    1. mysql-connector-python是mysql官方提供的接口
+    1. 安装 pip install mysql-connector-python
+    
 版本冻结
 ========
 1. 真郁闷，issue越做越多
