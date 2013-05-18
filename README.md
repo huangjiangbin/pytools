@@ -31,6 +31,9 @@ PYTHON工具集（使用python3.3，面向windows开发）
     1. MYSQL相关工具依赖于mysql-connector-python模块
     1. mysql-connector-python是mysql官方提供的接口
     1. 安装 pip install mysql-connector-python
+1. rsa
+    1. ssh-keygen依赖于rsa模块
+    1. 安装 pip insall rsa
     
 版本冻结
 ========
