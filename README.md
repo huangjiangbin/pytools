@@ -34,7 +34,10 @@ PYTHON工具集（使用python3.3，面向windows开发）
 1. rsa
     1. ssh-keygen依赖于rsa模块
     1. 安装 pip insall rsa
-    
+1. wmi
+    1. dsnumber获取磁盘序列号工具需要wmi模块
+    1. 安装 pip install wmi
+
 版本冻结
 ========
 1. 真郁闷，issue越做越多
