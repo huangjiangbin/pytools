@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import random
 import argparse
@@ -5,7 +6,7 @@ from inc import EPILOG
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="exit with code 0 or 1 randomly.",
+        description="0/1控制器。程序运行后随机地以0或1退化。",
         epilog=EPILOG,
         )
     parser.add_argument(
@@ -14,13 +15,13 @@ def ParseCommandLine():
         action="store",
         type=float,
         default=50.0,
-        help="30 means exit code will be 0 by 30%% possibility"
+        help="0值退出的百分比概率。如30表示，程序生成0值的概率是30%。默认概率是50%。"
         )
     parser.add_argument(
         "-v", "--verbose",
         dest="verbose",
         action="store_true",
-        help="display the result."
+        help="打印退出值。"
         )
     return parser, parser.parse_args()
 
