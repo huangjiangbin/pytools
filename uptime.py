@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import ctypes
 import datetime
@@ -6,14 +7,14 @@ from inc import EPILOG
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="Show system boot time or milliseconds elapsed since the system boot.",
+        description="显示系统开机时间或从开机到现在经过的秒数。默认是显示开机时间。",
         epilog=EPILOG,
         )
     parser.add_argument(
         "-c", "--tickcount",
         dest="tickcount",
         action="store_true",
-        help="Show the number of milliseconds that have elapsed since the system was started. Otherwise show boot time in format like \"2013-05-04 03:32:03\"."
+        help="显示从开机到现在经过的秒数。"
         )
     return parser, parser.parse_args()
 

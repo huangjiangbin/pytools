@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import argparse
 from inc import EPILOG
@@ -5,7 +6,7 @@ from func import StripCRLF
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="Print n-th column.",
+        description="显示指定列。",
         epilog=EPILOG,
         )
     parser.add_argument(
@@ -13,35 +14,35 @@ def ParseCommandLine():
         dest="encoding",
         action="store",
         default="utf-8",
-        help="File encoding. Default to utf-8.",
+        help="文件编码。",
         )
     parser.add_argument(
         "-n", "--number",
         dest="number",
         action="store",
         required=True,
-        help="The n-th column.",
+        help="指定列。允许指定多列，使用逗号分隔。",
         )
     parser.add_argument(
         "-d", "--delimiter",
         dest="delimiter",
         action="store",
         default=" ",
-        help="Target ",
+        help="如果指定多列，输出时的分隔符。默认为一个空格。",
         )
     parser.add_argument(
         "-s", "--separator",
         dest="separator",
         action="store",
         default="",
-        help="Source separator.",
+        help="目标文件的分隔符。",
         )
     parser.add_argument(
         "file",
         metavar="FILE",
         nargs="?",
         default="-",
-        help="Target file. Default to - means read from stdin.",
+        help="目标文件。使用“-”表示从标准输入读取文件。",
     )
     return parser, parser.parse_args()
 

@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import wmi
 import argparse
@@ -5,7 +6,7 @@ from inc import EPILOG
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="Get disk drive's Serial Number.",
+        description="获取磁盘序列号工具。",
         epilog=EPILOG,
         )
     return parser, parser.parse_args()

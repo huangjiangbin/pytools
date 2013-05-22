@@ -1,9 +1,10 @@
+# encoding: utf-8
 import argparse
 from inc import EPILOG
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="Get console screen size.",
+        description="获取控制台窗口尺寸。",
         epilog=EPILOG,
         )
     return parser, parser.parse_args()
