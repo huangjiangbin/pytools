@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import argparse
 from inc import EPILOG
@@ -6,26 +7,26 @@ BUFFER_SIZE = 1024*32-1
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="change the line breaker to windows/linux/macos style",
+        description="更改换行符。Windows下常以\\r\\n为换行符；Linux下常以\\n为换行符；某些旧版的Mac OS以\\r为换行符。注意：目标文件将会被处理结果覆盖!!!",
         epilog=EPILOG,
         )
     parser.add_argument(
         "-r",
         dest="r",
         action="store_true",
-        help="add \\r in line break",
+        help="将 \\r 加入到目标换行符中。",
         )
     parser.add_argument(
         "-n",
         dest="n",
         action="store_true",
-        help="add \\n in line break"
+        help="将 \\n 加入到目标换行符中。\\r和\\n都不出现时，将使用\\r\\n作为换行符。"
         )
     parser.add_argument(
         "f",
         nargs="?",
         default="-",
-        help="target file, if not provide or use - for stdin",
+        help="目标文件。如果不指定目标文件或指定为“-”，将从标准输入中读取，并打印到标准输出。",
         )
     return parser, parser.parse_args()
 
