@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import magic
 import argparse
@@ -6,14 +7,14 @@ from func import SmartUnicode, GetProgramPath
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="Guess file type.",
+        description="根据文件内容猜测文件类型。",
         epilog=EPILOG,
         )
     parser.add_argument(
         "file",
         metavar="FILE",
         nargs=1,
-        help="Target file."
+        help="目标文件。"
         )
     return parser, parser.parse_args()
 
