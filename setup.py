@@ -67,6 +67,7 @@ setup(
             Executable("fstartswith.py"),
             Executable("fendswith.py"),            
             Executable("file.py"),
+            Executable("fencoding.py"),
             
             # 系统时间相关程序
             Executable("nowtime.py"),
