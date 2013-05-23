@@ -1,10 +1,11 @@
+# encoding: utf-8
 import os
 import argparse
 from inc import EPILOG
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="Get file size or stream length.",
+        description="文件或字节流大小统计工具。",
         epilog=EPILOG,
         )
     parser.add_argument(
@@ -12,7 +13,7 @@ def ParseCommandLine():
         metavar="FILE",
         nargs="?",
         default="-",
-        help="Target file. Default to - means read from stdin.",
+        help="目标文件或字节流。默认为“-”，表示从标准输入中读取的字节流。",
         )
     return parser, parser.parse_args()
 
