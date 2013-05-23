@@ -39,7 +39,6 @@ setup(
             Executable("strip.py"),            
             Executable("lf.py"),
             Executable("lreplace.py"),
-            Executable("lcount.py"),
             Executable("col.py"),
             Executable("uniq.py"),
             Executable("lsort.py"),
