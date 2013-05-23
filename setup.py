@@ -73,6 +73,7 @@ setup(
             Executable("isoweek.py"),
             Executable("uptime.py"),
             Executable("idletime.py"),
+            Executable("cpuinfo.py"),
             
             # 输入控制/流程控制
             Executable("sleep.py"),
