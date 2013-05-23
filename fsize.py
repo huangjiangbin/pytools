@@ -9,24 +9,38 @@ def ParseCommandLine():
         epilog=EPILOG,
         )
     parser.add_argument(
+        "-l", "--line-mode",
+        dest="linemode",
+        action="store_true",
+        help="统计文件或字节流的行数。",
+    )    
+    parser.add_argument(
         "file",
         metavar="FILE",
         nargs="?",
         default="-",
         help="目标文件或字节流。默认为“-”，表示从标准输入中读取的字节流。",
         )
+
     return parser, parser.parse_args()
 
 def Main():
     parser, opt = ParseCommandLine()
     
     if opt.file == "-":
-        try:
-            size = len( os.sys.stdin.buffer.raw.read() )
-        except:
-            size = 0
+        if opt.linemode:
+            size = len( os.sys.stdin.buffer.raw.readlines() )
+        else:
+            try:
+                size = len( os.sys.stdin.buffer.raw.read() )
+            except:
+                size = 0
     else:
-        size = os.stat(opt.file).st_size
+        if opt.linemode:
+            with open(opt.file, "rb") as fileobj:
+                size = len( fileobj.readlines() )
+        else:
+            size = os.stat(opt.file).st_size
     
     print(size)
 
