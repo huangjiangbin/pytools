@@ -40,7 +40,6 @@ setup(
             Executable("lf.py"),
             Executable("lreplace.py"),
             Executable("lcount.py"),
-            Executable("fsize.py"),
             Executable("col.py"),
             Executable("uniq.py"),
             Executable("lsort.py"),
@@ -90,12 +89,17 @@ setup(
             Executable("dsnumber.py"),
             Executable("diskfree.py"),
             
-            # 文件操作
-            Executable("touch.py"),
-            Executable("fs.py"),
-            Executable("which.py"),
+            # 文件元信息
+            Executable("fsize.py"),
             Executable("du.py"),
-            Executable("fstat.py"),
+            Executable("fstat.py"),            
+            Executable("fs.py"),
+            
+            # 文件查找
+            Executable("which.py"),
+            
+            # 文件或文件夹操作
+            Executable("touch.py"),
             
             # 网络客户端
             Executable("ping.py", targetName="yping.exe"),
