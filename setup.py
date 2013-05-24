@@ -41,12 +41,12 @@ setup(
             Executable("strip.py"),            
             Executable("lf.py"),
             Executable("lreplace.py"),
-            Executable("col.py"),
-            Executable("uniq.py"),
-            Executable("lsort.py"),
-            Executable("sum.py"),
-            Executable("lgroup.py"),
-            Executable("flines.py"),
+            Executable("col.py"),                                   # 显示指定列
+            Executable("uniq.py"),                                  # 消连续重复行
+            Executable("lsort.py"),                                 # 行排序
+            Executable("sum.py"),                                   
+            Executable("lgroup.py"),                                # 按行元信息归组再回调
+            Executable("flines.py"),                                # 显示指定行
             
             # 字符串/数值/信号 生成器
             Executable("pwgen.py"),
