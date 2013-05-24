@@ -42,6 +42,7 @@ setup(
             Executable("uniq.py"),
             Executable("lsort.py"),
             Executable("sum.py"),
+            Executable("lgroup.py"),
             
             # 字符串/数值/信号 生成器
             Executable("pwgen.py"),
