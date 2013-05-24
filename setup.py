@@ -31,6 +31,9 @@ setup(
             Executable("pytools-version.py"),
             
             # 字符串处理
+            #       字符串处理是指从文件或标准输入中读取内容
+            #       对内容进行加工处理过滤等操作
+            #       最后显示转换后的内容到标准输出
             Executable("tail.py"),
             Executable("head.py"),
             Executable("eval.py"),
@@ -63,9 +66,11 @@ setup(
             Executable("hash.py", targetName="sha512.exe"),
             
             # 文件内容处理
-            Executable("fprint.py"),            
+            #       文件内容处理是指对文件内容进行判断、识别
+            #       最后显示文件相关的信息
+            Executable("fprint.py"),
             Executable("fstartswith.py"),
-            Executable("fendswith.py"),            
+            Executable("fendswith.py"),
             Executable("file.py"),
             Executable("fencoding.py"),
             
