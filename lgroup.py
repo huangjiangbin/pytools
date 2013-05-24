@@ -1,8 +1,10 @@
 # encoding: utf-8
 import os
 import re
+import io
 import argparse
 import subprocess
+
 from inc import EPILOG
 from func import StdoutWrite
 
@@ -17,6 +19,13 @@ def ParseCommandLine():
         action="store",
         default="utf-8",
         help="元信息提取规则编码。",
+        )
+    parser.add_argument(
+        "-s", "--group-separator",
+        dest="group_separator",
+        action="store",
+        default="#"*50,
+        help="组分隔符。默认为50个“#”。",
         )
     parser.add_argument(
         "-m", "--meta",
@@ -57,6 +66,7 @@ def Main():
     data0 = []
     data = {}
     rep = re.compile( opt.meta.encode( opt.meta_encoding ) )
+    group_separator = opt.group_separator.encode( opt.meta_encoding )
     linesep = b"\n"
     
     while True:
@@ -67,7 +77,10 @@ def Main():
         if linesep == b"\n":
             if b"\r" in line:
                 linesep = b"\r\n"
-                
+        
+        if not (line.endswith(b"\n") or line.endswith(b"\r")):
+            line += linesep
+        
         m = rep.match(line)
         if not m:
             data0.append( line )
@@ -76,29 +89,29 @@ def Main():
             if not key in data:
                 data[ key ] = []
             data[ key ].append( line )
-        
+    
+    group_separator += linesep
+    
     keys = list(data.keys())
     keys.sort()
     for key in keys:
         lines = data[key]
         if not opt.command:
-            for line in lines:
-                if not ( line.endswith(b"\r") or line.endswith(b"\n") ):
-                    line += linesep
-                StdoutWrite(line)
-            StdoutWrite(b">"*50+linesep)
+            StdoutWrite(b"".join(lines))
+            StdoutWrite(group_separator)
         else:
-            pass
-        
+            proc = subprocess.Popen( opt.command, stdin=subprocess.PIPE, shell=True)
+            proc.communicate(b"".join(lines))
+            proc.wait()
+            
     if opt.print_no_match_lines:
         if not opt.command:
-            for line in data0:
-                if not ( line.endswith(b"\r") or line.endswith(b"\n") ):
-                    line += linesep
-                StdoutWrite(line)
-            StdoutWrite(b">"*50+linesep)
+            StdoutWrite(b"".join(data0))
+            StdoutWrite(group_separator)
         else:
-            pass
+            proc = subprocess.Popen( opt.command, stdin=subprocess.PIPE, shell=True)
+            proc.communicate(b"".join(data0))
+            proc.wait()
         
     if opt.file != "-":
         fileobj.close()
