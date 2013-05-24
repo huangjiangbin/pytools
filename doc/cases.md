@@ -47,4 +47,5 @@ cat b.txt | awk '{print "rm -f " $0}' > c.txt
 . c.txt
 ```
 
+(现在的工具集中，实现 awk '{print "rm -f " $0}' 的功能还没有，需要增加！#107)
 
