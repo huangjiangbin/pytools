@@ -41,8 +41,8 @@ def SmartUnicode(s):
 
 def StdoutWrite(line):
     try:
-        os.sys.stdout.buffer.raw.write(line)
-        os.sys.stdout.buffer.raw.flush()
+        os.sys.stdout.buffer.write(line)
+        os.sys.stdout.buffer.flush()
         flag = True
     except:
         flag = False
