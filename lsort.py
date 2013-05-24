@@ -63,6 +63,12 @@ def Main():
     if not lines:
         return
     
+    linesep = b"\n"
+    for line in lines:
+        if b"\r" in line:
+            linesep = b"\r\n"
+            break
+        
     if opt.numberic:
         lines2 = []
         for line in lines:
@@ -72,7 +78,7 @@ def Main():
             row = heapq.heappop(lines2)
             line = row[1]
             if not line.endswith(b"\n") and not line.endswith(b"\r"):
-                line += b"\r\n"
+                line += linesep
             StdoutWrite(line)
     else:
         lines.sort()
@@ -80,7 +86,7 @@ def Main():
             lines.reverse()
         for line in lines:
             if not line.endswith(b"\n") and not line.endswith(b"\r"):
-                line += b"\r\n"
+                line += linesep
             StdoutWrite(line)
         
 if __name__ == '__main__':
