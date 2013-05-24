@@ -31,7 +31,6 @@ setup(
             Executable("pytools-version.py"),
             
             # 字符串处理
-            Executable("cat.py"),
             Executable("tail.py"),
             Executable("head.py"),
             Executable("eval.py"),
@@ -64,6 +63,7 @@ setup(
             Executable("hash.py", targetName="sha512.exe"),
             
             # 文件内容处理
+            Executable("fprint.py"),            
             Executable("fstartswith.py"),
             Executable("fendswith.py"),            
             Executable("file.py"),
