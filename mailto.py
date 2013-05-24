@@ -127,7 +127,7 @@ def Main():
     if opt.contentfile == "-":
         content = os.sys.stdin.buffer.read().decode(opt.encoding)
     else:
-        with open(opt.contentfile, r, encoding=opt.encoding) as f:
+        with open(opt.contentfile, "r", encoding=opt.encoding) as f:
             content = f.read()
     msg.attach( MIMEText(content, opt.mimetype) )
     
