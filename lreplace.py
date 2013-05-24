@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import re
 import argparse
@@ -7,43 +8,36 @@ BUFFER_SIZE = 1024*32-1
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="Replace file content line by line. If the FILE is stdin, output to stdout, or else write the result back to the content file.",
+        description="文件内容替换工具。支持正则匹配。",
         epilog=EPILOG
-        )
-    parser.add_argument(
-        "-e", "--encoding",
-        dest="encoding",
-        action="store",
-        default="utf-8",
-        help="content encoding. default utf-8.",
         )
     parser.add_argument(
         "-i", "--ignore-case",
         dest="ignorecase",
         action="store_true",
         default=False,
-        help="ignore character case while searching.",
+        help="忽略大小写。",
         )
     parser.add_argument(
         "-s", "--search",
         dest="search",
         action="store",
         required=True,
-        help="re.sub(...) search pattern",
+        help="查询规则。支持正则和正则组。",
         )
     parser.add_argument(
         "-r", "--replace",
         dest="replace",
         action="store",
         required=True,
-        help="re.sub(...) repl content",
+        help="替换字符串。使用\\1, \\2, ... \\n代替正则组。",
         )
     parser.add_argument(
         "file",
         metavar="FILE",
         nargs="?",
         default="-",
-        help="content file. use - for stdin."
+        help="目标文件。默认为“-”表示从标准输入中读取。"
         )
     return parser, parser.parse_args()
 
@@ -57,21 +51,23 @@ class ReplaceCallback:
 def Main():
     parser, opt = ParseCommandLine()
     
-    reflags = 0
+    reflags = re.M
     if opt.ignorecase:
-        reflags |= re.IGNORECASE
+        reflags |= re.I
     
     if opt.file == "-":
-        fin = os.sys.stdin
-        fout = os.sys.stdout
+        fin = os.sys.stdin.buffer.raw
+        fout = os.sys.stdout.buffer.raw
     else:
-        fin = open(opt.file, "rt", encoding=opt.encoding)
+        fin = open(opt.file, "rb")
         
         finpath = os.path.realpath(opt.file)
         fdir, fname = os.path.split(finpath)
         foutname = "."+fname+".swp"
         foutpath = os.path.join(fdir, foutname)
-        fout = open(foutpath, "wt", encoding=opt.encoding)
+        fout = open(foutpath, "w")
+    
+    content = fin.read()
     
     if re.findall( "{.*}", opt.replace ):
         use_callback = True
