@@ -38,10 +38,9 @@ PYTHON工具集（使用python3.3，面向windows开发）
     1. dsnumber获取磁盘序列号工具需要wmi模块
     1. cpuinfo也需要wmi模块
     1. 安装 pip install wmi
-1. chardet
+1. chardet2
     1. fencoding工具依赖于chardet模块
-    1. 安装: 下载源码后执行 python setup.py install
-    1. 下载地址 https://github.com/huangjiangbin/chardet3
+    1. 安装: pip install chardet2
 
 版本冻结
 =================================
