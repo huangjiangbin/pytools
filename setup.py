@@ -86,6 +86,7 @@ setup(
             Executable("sleep.py"),
             Executable("pbreak.py"),
             Executable("getchar.py"),
+            Executable("timeit.py"),
             
             # 控制台窗口相关
             Executable("cmdsize.py"),

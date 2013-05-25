@@ -50,5 +50,11 @@ def StdoutWrite(line):
     if not flag:
         os.sys.exit(1)
 
-
+def StdinSize():
+    try:
+        size = os.sys.stdin.seek(0, 2)
+        os.sys.stdin.seek(0, 0)
+    except:
+        size = 0
+    return size
 
