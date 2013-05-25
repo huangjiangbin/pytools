@@ -1,3 +1,4 @@
+# encoding: utf-8
 import os
 import hashlib
 import argparse
@@ -17,13 +18,14 @@ if progname in METHOD_CHOICES:
     
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description = "Print hash result. With no FILE or when FILE is -, read from standard input.",
+        description = "计算文件内容的HASH值。默认从标准输入中获取文件内容。",
         epilog = EPILOG,
         )
     parser.add_argument(
         "file",
         nargs="*",
         default=["-"],
+        help="文件。“-”表示从标准输入中获取内容。",
         )
     
     if not hashmethodname:
@@ -33,7 +35,7 @@ def ParseCommandLine():
             action="store",
             required=True,
             choices=METHOD_CHOICES,
-            help="hash method. md5/sha1/sha224/sha256/sha384/sha512.",
+            help="HASH算法。可选的有：md5/sha1/sha224/sha256/sha384/sha512。",
             )
     
     return parser, parser.parse_args()
@@ -46,7 +48,7 @@ def Main():
     if not hashmethodname:
         hashmethodname = opt.method
     
-    hashmethodname = hashmethodname.strip()
+    hashmethodname = hashmethodname.strip().lower()
     hashmethod = getattr(hashlib, hashmethodname, None)
     
     if not hashmethod:
@@ -56,22 +58,21 @@ def Main():
         
     files = []
     for f in opt.file:
-        fromstdin = False
+        
         if f == "-":
             fobj = os.sys.stdin.buffer
-            fromstdin = True
         else:
             fobj = open(f, "rb")
         
         m = hashmethod()
-        while 1:
-            t = fobj.read(524288)
+        while True:
+            t = fobj.read(1024)
             if t:
                 m.update(t)
             else:
                 break
         
-        if not fromstdin:
+        if f != "-":
             fobj.close()
         
         print( "%s %s %s"%(hashmethodname, m.hexdigest(), f) )
