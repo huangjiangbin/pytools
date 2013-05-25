@@ -82,6 +82,7 @@ setup(
             Executable("uptime.py"),
             Executable("idletime.py"),
             Executable("cpuinfo.py"),
+            Executable("timestamp.py"),
             
             # 输入控制/流程控制
             Executable("sleep.py"),
