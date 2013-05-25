@@ -113,7 +113,7 @@ setup(
             Executable("touch.py"),
             
             # 网络客户端
-            Executable("ping.py", targetName="yping.exe"),
+            Executable("icmptest.py"),
             Executable("httpd.py"),
             Executable("ftpd.py"),
             Executable("whois.py"),
