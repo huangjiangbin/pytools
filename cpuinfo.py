@@ -27,15 +27,13 @@ def Main():
         for info in cpus:
             print(info)
     else:
-        print("-"*40)
         for info in cpus:
+            print("-"*70)
             print("%s: %s"%("         DeviceID", info.DeviceID))
             print("%s: %s"%("             Name", info.Name))
             print("%s: %s"%("      Description", info.Description))
             print("%s: %s"%("    NumberOfCores", info.NumberOfCores))
             print("%s: %s MHz"%("CurrentClockSpeed", info.CurrentClockSpeed))
-            
-            print("-"*40)
         
 if __name__ == '__main__':
     Main()
