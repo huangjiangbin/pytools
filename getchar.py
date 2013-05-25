@@ -40,7 +40,8 @@ def Main():
     msg = GetChar(opt.information)
     
     if opt.echo:
-        print(opt.information, end="", flush=True)
+        os.sys.stdout.buffer.write(msg)
+        os.sys.stdout.buffer.flush()
     
 if __name__ == '__main__':
     Main()
