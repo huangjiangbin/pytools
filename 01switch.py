@@ -6,7 +6,7 @@ from inc import EPILOG
 
 def ParseCommandLine():
     parser = argparse.ArgumentParser(
-        description="0/1控制器。程序运行后随机地以0或1退化。",
+        description="0/1控制器。程序运行后随机地以0或1退出。",
         epilog=EPILOG,
         )
     parser.add_argument(
