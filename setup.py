@@ -48,6 +48,7 @@ setup(
             Executable("lgroup.py"),                                # 按行元信息归组再回调
             Executable("flines.py"),                                # 显示指定行
             Executable("ljoin.py"),                                 # 多行合并成一行
+            Executable("noblanklines.py"),                          # 删除空白行或合并空白行
             
             # 字符串/数值/信号 生成器
             Executable("pwgen.py"),
